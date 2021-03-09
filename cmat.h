@@ -103,4 +103,10 @@ void mTranspose(mat *result,mat *T);
  */
 void mEqual(mat * result,mat * T);
 
+
+/*
+ * The function was defined to get the rank of a matrix input.
+ */
+int mRank( mat *T );
+
 #endif /* cmat_h */
