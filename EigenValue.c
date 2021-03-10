@@ -56,7 +56,7 @@ int mRank( mat *T )
 void vInitial(vector *T, int m)
 {
     (*T).row = m;
-    (*T).v = (double *)malloc(m * sizeof(double));
+    (*T).v = (double _Complex *)malloc(m * sizeof(double _Complex));
 }
 
 

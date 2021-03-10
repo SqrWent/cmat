@@ -14,10 +14,10 @@
 /*Initialize a matrix*/
 void initial( mat *T, int row, int column )
 {
-    (*T).m = (double * *) malloc( row * sizeof(double *) );
+    (*T).m = (double _Complex * *) malloc( row * sizeof(double _Complex *) );
     for ( int i = 0; i < row; ++i )
     {
-        ( (*T).m)[i] = (double *) malloc( column * sizeof(double) );
+        ( (*T).m)[i] = (double _Complex *) malloc( column * sizeof(double _Complex) );
     }
     (*T).row    = row;
     (*T).col    = column;
@@ -58,6 +58,8 @@ void mFree( mat *T )
 /*
  * Read matrix
  */
+/*
+ Function temporarily unavailabe since compex number added.
 void mScanf( mat *T )
 {
     for ( int i = 0; i < (*T).row; ++i )
@@ -68,7 +70,7 @@ void mScanf( mat *T )
         }
     }
 }
-
+*/
 
 /*
  * This function was defined to re-initial the matrix
@@ -179,7 +181,7 @@ void mProduct( mat *result, mat *A, mat *B )
  */
 int upTra( mat *T )
 {
-    double    temp;
+    double _Complex    temp;
     int    exp = 1;
     for ( int i = 0; i < (*T).row; ++i )
     {
@@ -189,7 +191,7 @@ int upTra( mat *T )
             {
                 if ( (*T).m[j][i] != 0 )
                 {
-                    double num = (*T).m[j][i] / (*T).m[i][i];
+                    double _Complex num = (*T).m[j][i] / (*T).m[i][i];
                     for ( int k = i; k < (*T).col; ++k )
                     {
                         (*T).m[j][k] -= num * (*T).m[i][k];
@@ -214,7 +216,7 @@ int upTra( mat *T )
                     {
                         if ( (*T).m[j][i] != 0 )
                         {
-                            double num = (*T).m[j][i] / (*T).m[i][i];
+                            double _Complex num = (*T).m[j][i] / (*T).m[i][i];
                             for ( int k = i; k < (*T).col; ++k )
                             {
                                 (*T).m[j][k] -= num * (*T).m[i][k];
@@ -232,7 +234,7 @@ int upTra( mat *T )
 /*
  * This function was used to get the determinant of a matrix
  */
-double det( mat *T )
+double _Complex det( mat *T )
 {
     if ( (*T).row != (*T).col )
     {
@@ -252,7 +254,7 @@ double det( mat *T )
             }
         }
         int    exp    = upTra( &Temp );
-        double    det    = 1;
+        double _Complex    det    = 1;
         for ( int i = 0; i < (*T).row; ++i )
         {
             det = det * Temp.m[i][i];
@@ -266,6 +268,8 @@ double det( mat *T )
 /*
  * print a matrix
  */
+/*
+ Function temporarily unavilavle since complex number added.
 void mPrint( mat *T )
 {
     int    row    = (*T).row;
@@ -284,6 +288,7 @@ void mPrint( mat *T )
     }
     printf( "\n" );
 }
+ */
 
 
 /*
@@ -373,7 +378,7 @@ void subMat( mat *result, mat *input, int row1, int row2, int column1, int colum
  */
 char mInverse( mat *result, mat * input1 )
 {
-    double tras; /* An variant saving temporary numbers*/
+    double _Complex tras; /* An variant saving temporary numbers*/
     if ( (*input1).row != (*input1).col )
     {
         printf( "The matrix don't have inverse!" );

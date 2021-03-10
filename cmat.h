@@ -10,7 +10,7 @@
 
 /*Declare matrix structure*/
 typedef struct {
-    double    **m;
+    double _Complex    **m;
     int    row, col;
 }
 mat;
@@ -18,7 +18,7 @@ mat;
 // Declare vector structure
 // By default, it's a column vector.
 typedef struct{
-    double *v;
+    double _Complex *v;
     int row;
 }vector;
 
@@ -72,7 +72,7 @@ int upTra( mat *T );
 /*
  * This function was used to get the determinant of a matrix
  */
-double det( mat *T );
+double _Complex det( mat *T );
 
 
 /*
