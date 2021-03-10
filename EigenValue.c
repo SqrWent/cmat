@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <complex.h>
 #include "cmat.c"
 #include "cmat.h"
 
@@ -97,5 +98,24 @@ void colVector(vector *result, mat *T, int i)
 }
 
 
+//This function is defined to get the inner product of two vectors
+double _Complex vInnerProduct(vector *a, vector *b)
+{
+    double _Complex product = 0;
+    for (int i = 0; i < (*a).row; ++i){
+        product += conj((*a).v[i])*(*b).v[i];
+    }
+    return product;
+}
 
+
+//This function is defined to get the norm of a vector
+double vNorm(vector *a)
+{
+    double norm = cabs(vInnerProduct(a, a));
+    return norm;
+}
+
+
+//This function is defined to carry Gram-Schemit procedure on vectors.
 

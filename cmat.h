@@ -120,4 +120,28 @@ void colVector(vector * result, mat * T, int i);
  */
 int mRank( mat *T );
 
+
+//This function is defined to initial a vector
+void vInitial(vector *T, int m);
+
+
+//This function is used to make zero vector.
+void vZero(vector *T, int m);
+
+
+//This function is used to free vector memory
+void vFree(vector *T);
+
+
+//This function is used to reInitial the vector memory
+void vReInitial(vector *T, int n);
+
+
+//This function is defined to get the i-th column vector of matrix A and save to result
+void colVector(vector *result, mat *T, int i);
+
+
+//This function is defined to get the inner product of two vectors
+double _Complex vInnerProduct(vector *a, vector *b);
+
 #endif /* cmat_h */

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <math.h>
 
 
 /*Initialize a matrix*/
@@ -388,19 +389,19 @@ char mInverse( mat *result, mat * input1 )
     char    ifInvert    = 1;
     int    row        = (*input1).row;
     int    column        = (*input1).col;
-    mat    I;              /*Identity Matrix*/
-    zeros( &I, row, row );  /*Initial the identity matrix and set zero*/
+    mat    Id;              /*Identity Matrix*/
+    zeros( &Id, row, row );  /*Initial the identity matrix and set zero*/
 
     for ( int i = 0; i < row; ++i )
     {
-        I.m[i][i] = 1;
+        Id.m[i][i] = 1;
     }
 
     mat temp;
     initial( &temp, row, 2 * row );
     mat *arr[1][2];
     arr[0][0]    = input1;
-    arr[0][1]    = &I;
+    arr[0][1]    = &Id;
 
     mJoint( 1, 2, &temp, arr );
 
@@ -441,7 +442,7 @@ char mInverse( mat *result, mat * input1 )
     }
 
     mFree( &temp );
-    mFree( &I );
+    mFree( &Id );
     return(ifInvert);
 }
 
