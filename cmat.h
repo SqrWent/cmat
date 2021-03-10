@@ -42,7 +42,7 @@ void mFree( mat *T );
 /*
  * Read matrix
  */
-void mScanf( mat *T );
+//void mScanf( mat *T );
 
 
 /*
@@ -60,7 +60,7 @@ void mSum( int n, mat *result, mat *A, ... );
 /*
  * This function was designed to get the product of the input matrix
  */
-void mProduct( mat *result, mat *A, mat *B );
+//void mProduct( mat *result, mat *A, mat *B );
 
 
 /*
