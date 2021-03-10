@@ -15,6 +15,13 @@ typedef struct {
 }
 mat;
 
+// Declare vector structure
+// By default, it's a column vector.
+typedef struct{
+    double *v;
+    int row;
+}vector;
+
 
 /*Initialize a matrix*/
 void initial( mat *T, int row, int column );
@@ -102,6 +109,10 @@ void mTranspose(mat *result,mat *T);
  This function is used to equal two matrixs
  */
 void mEqual(mat * result,mat * T);
+
+
+//This function is defined to get the i-th column vector of matrix A and save to result
+void colVector(vector * result, mat * T, int i);
 
 
 /*
