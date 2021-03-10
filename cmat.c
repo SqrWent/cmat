@@ -200,7 +200,7 @@ int upTra( mat *T )
                 }
             }
         }else {
-            char flag = 0;
+            _Bool flag = 0;
             for ( int check_1 = i + 1; check_1 < (*T).row && flag != 1; ++check_1 )
             {
                 if ( (*T).m[check_1][i] != 0 )

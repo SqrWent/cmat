@@ -113,7 +113,35 @@ double _Complex vInnerProduct(vector *a, vector *b)
 double vNorm(vector *a)
 {
     double norm = cabs(vInnerProduct(a, a));
+    norm = pow(norm, 0.5);
     return norm;
+}
+
+
+//This function is defined to get vectors joint
+void vJoint(int column, mat * result, vector *s[column])
+{
+    int row = (*s[0]).row;
+    _Bool flag = 1;
+    for (int i = 0; i < row; ++i){
+        if (s[i]->row != row){
+            reInitial(result, 1, 1);
+            (*result).m[0] = NULL;
+            flag = 0;
+        }
+    }
+    
+    if (flag == 0){
+        
+    }
+    else{
+        reInitial(result, row, row);
+        for (int i = 0; i < row; ++i){
+            for (int j = 0; i < column; ++j){
+                result->m[i][j] = s[j]->v[i];
+            }
+        }
+    }
 }
 
 

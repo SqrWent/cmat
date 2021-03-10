@@ -144,4 +144,7 @@ void colVector(vector *result, mat *T, int i);
 //This function is defined to get the inner product of two vectors
 double _Complex vInnerProduct(vector *a, vector *b);
 
+//This function is defined to get the norm of a vector
+double vNorm(vector *a);
+
 #endif /* cmat_h */
