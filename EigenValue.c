@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <complex.h>
-#include "cmat.c"
+#include <math.h>
 #include "cmat.h"
 
 //This function is defined to initial a vector
@@ -50,7 +50,7 @@ void vReInitial(vector *T, int n)
 //This function is defined to get the i-th column vector of matrix A and save to result
 void colVector(vector *result, mat *T, int i)
 {
-    vReInitial(result, (*T).row);
+    vZero(result, (*T).row);
     for (int k = 0; k < (*T).row; ++k)
     {
         (*result).v[k] = (*T).m[k][i - 1];
@@ -109,12 +109,18 @@ void vJoint(int column, mat * result, vector *s[column])
 void vGS(mat *result, mat *input)
 {
     if (input->row != input->col){
-        mFree(result);
+        ;
     }
     else{
         zeros(result, input -> row, input -> row);
         vector temp;
         vector temp0;
+        for (int i = 0; i < input -> row; i++){
+            for (int j = 0; j < input -> row; j++){
+                (*result).m[i][j] = (*input).m[i][j];
+            }
+        }
+        
         for (int i = 0; i < input ->row; i++)
         {
             for (int j = 0; j < i; j++){
@@ -122,7 +128,7 @@ void vGS(mat *result, mat *input)
                 colVector(&temp0, input, i+1);
                 double co =vInnerProduct(&temp0, &temp)/vInnerProduct(&temp, &temp);
                 for (int k = 0; k < input -> row; k++){
-                    (*result).m[i][k] = (*input).m[i][k] - co*(*input).m[j][k];
+                    (*result).m[k][i] = (*result).m[k][i] - co*(*result).m[k][j];
                 }
             }
         }

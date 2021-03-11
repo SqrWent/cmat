@@ -155,7 +155,4 @@ void vJoint(int column, mat * result, vector *s[column]);
 //This function is defined to carry Gram-Schmidt procedure on vectors.
 void vGS(mat *result, mat *input);
 
-
-
-
 #endif /* cmat_h */
