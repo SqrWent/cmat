@@ -132,5 +132,17 @@ void vGS(mat *result, mat *input)
                 }
             }
         }
+        
+        for (int i = 0; i < input -> row; i++){
+            for (int j = 0; j < input -> row; j++){
+                colVector(&temp, result, i+1);
+                double norm = vNorm(&temp);
+                result->m[j][i] = (*result).m[j][i]/norm;
+            }
+        }
     }
 }
+
+
+//This function is defined to carry Hessenberg Transformation on matrix
+

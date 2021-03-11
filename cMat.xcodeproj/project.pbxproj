@@ -13,6 +13,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		757CF79025FA41A80014569E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		757CF79125FA41A80014569E /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		75A389CF25F7A62A0082AD33 /* libcMat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcMat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A389D725F7A63B0082AD33 /* cmat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cmat.h; sourceTree = "<group>"; };
 		75A389D825F7A63B0082AD33 /* cmat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cmat.c; sourceTree = "<group>"; };
@@ -36,6 +38,8 @@
 				75A389D725F7A63B0082AD33 /* cmat.h */,
 				75A389DC25F7A67C0082AD33 /* EigenValue.c */,
 				75A389D825F7A63B0082AD33 /* cmat.c */,
+				757CF79125FA41A80014569E /* LICENSE */,
+				757CF79025FA41A80014569E /* README.md */,
 				75A389D025F7A62A0082AD33 /* Products */,
 			);
 			sourceTree = "<group>";
