@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <complex.h>
 #include <math.h>
 
 
@@ -386,7 +387,7 @@ char mInverse( mat *result, mat * input1 )
         char *p = NULL;
         p[0] = 0;
     }
-    char    ifInvert    = 1;
+    _Bool    ifInvert    = 1;
     int    row        = (*input1).row;
     int    column        = (*input1).col;
     mat    Id;              /*Identity Matrix*/
@@ -409,7 +410,7 @@ char mInverse( mat *result, mat * input1 )
     upTra( &temp );
     for ( int i = 0; i < row; ++i )
     {
-        if ( temp.m[i][i] == 0 )
+        if ( cabs(temp.m[i][i]) < 1E-6 )
         {
             ifInvert = 0;
             break;

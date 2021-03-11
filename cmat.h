@@ -147,4 +147,15 @@ double _Complex vInnerProduct(vector *a, vector *b);
 //This function is defined to get the norm of a vector
 double vNorm(vector *a);
 
+
+//This function is defined to get vectors joint
+void vJoint(int column, mat * result, vector *s[column]);
+
+
+//This function is defined to carry Gram-Schmidt procedure on vectors.
+void vGS(mat *result, mat *input);
+
+
+
+
 #endif /* cmat_h */

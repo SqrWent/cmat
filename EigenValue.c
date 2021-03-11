@@ -13,46 +13,6 @@
 #include "cmat.c"
 #include "cmat.h"
 
-
-/*
- * The function was defined to get the rank of a matrix input.
- */
-int mRank( mat *T )
-{
-    int    rank;
-    int    row    = (*T).row;
-    int    column    = (*T).col;
-    mat    Temp;
-    mTranspose( &Temp, T );
-    if ( column >= row )
-    {
-        rank = row;
-        upTra( &Temp );
-        for ( int i = 0; i < row; ++i )
-        {
-            if ( (Temp).m[i][i] == 0 )
-            {
-                --rank;
-            }
-        }
-    }
-    else
-    {
-        mEqual( &Temp, T );
-        rank = column;
-        upTra( &Temp );
-        for ( int i = 0; i < row; ++i )
-        {
-            if ( (Temp).m[i][i] == 0 )
-            {
-                --rank;
-            }
-        }
-    }
-    return(rank);
-}
-
-
 //This function is defined to initial a vector
 void vInitial(vector *T, int m)
 {
@@ -93,7 +53,7 @@ void colVector(vector *result, mat *T, int i)
     vReInitial(result, (*T).row);
     for (int k = 0; k < (*T).row; ++k)
     {
-        (*result).v[k] = (*T).m[k][i];
+        (*result).v[k] = (*T).m[k][i - 1];
     }
 }
 
@@ -145,5 +105,26 @@ void vJoint(int column, mat * result, vector *s[column])
 }
 
 
-//This function is defined to carry Gram-Schemit procedure on vectors.
-
+//This function is defined to carry Gram-Schmidt procedure on vectors.
+void vGS(mat *result, mat *input)
+{
+    if (input->row != input->col){
+        mFree(result);
+    }
+    else{
+        zeros(result, input -> row, input -> row);
+        vector temp;
+        vector temp0;
+        for (int i = 0; i < input ->row; i++)
+        {
+            for (int j = 0; j < i; j++){
+                colVector(&temp, input, j+1);
+                colVector(&temp0, input, i+1);
+                double co =vInnerProduct(&temp0, &temp)/vInnerProduct(&temp, &temp);
+                for (int k = 0; k < input -> row; k++){
+                    (*result).m[i][k] = (*input).m[i][k] - co*(*input).m[j][k];
+                }
+            }
+        }
+    }
+}
