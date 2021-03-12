@@ -16,8 +16,8 @@
 //This function is defined to initial a vector
 void vInitial(vector *T, int m)
 {
-    (*T).row = m;
     (*T).v = (double _Complex *)malloc(m * sizeof(double _Complex));
+    (*T).row = m;
 }
 
 
@@ -36,6 +36,7 @@ void vZero(vector *T, int m)
 void vFree(vector *T)
 {
     free((*T).v);
+    (*T).v = NULL;
 }
 
 
@@ -114,26 +115,43 @@ void vJoint(int column, mat * result, vector *s[column])
 
 
 //This function is defined to carry Gram-Schmidt procedure on vectors.
-void vGS(mat *result, mat *input){
+void vGS(mat *Qresult, mat *Rresult, mat *input){
     int size = input ->row;
     vector *v[size];
     
+    //malloc v
     for (int i = 0; i < size; ++i){
+        v[i] = (vector *)malloc(size*sizeof(double));
+    }
+    
+    for (int i = 0; i < size; ++i){
+        vInitial(v[i], size);
         colVector(v[i], input, i+1);
     }
     
-    zeros(result, size, size);
+    initial(Qresult, size, size);
+    initial(Rresult, size, size);
     
     vector temp;
+    
     for (int i = 0; i < size; ++i){
-        result ->m[i][i] = vNorm(v[i]);
-        vNumProduct(&temp, 1/(result->m[i][i]), v[i]);
+        Rresult ->m[i][i] = vNorm(v[i]);
+        vNumProduct(&temp, 1/(Rresult->m[i][i]), v[i]);
         for (int j = i+1; j < size; ++j){
-            (*result).m[i][j] = vInnerProduct(v[j], &temp);
+            (*Rresult).m[i][j] = vInnerProduct(v[j], &temp);
             for (int k = 0; k < size; ++k){
-                v[j] -> v[k] = v[j] -> v[k] - (*result).m[i][j]*temp.v[i];
+                v[j] -> v[k] = v[j] -> v[k] - (*Rresult).m[i][j]*temp.v[k];
             }
         }
+        for (int k = 0; k < size; ++k){
+            Qresult->m[k][i] = temp.v[k];
+        }
+    }
+    
+    vFree(&temp);
+    for (int i = 0; i < size; ++i){
+        vFree(v[i]);
+        free(v[i]);
     }
 }
 
