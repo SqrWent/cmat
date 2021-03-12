@@ -115,7 +115,7 @@ void vJoint(int column, mat * result, vector *s[column])
 
 
 //This function is defined to carry Gram-Schmidt procedure on vectors.
-void vGS(mat *Qresult, mat *Rresult, mat *input){
+void MGS(mat *Qresult, mat *Rresult, mat *input){
     int size = input ->row;
     vector *v[size];
     
@@ -136,7 +136,12 @@ void vGS(mat *Qresult, mat *Rresult, mat *input){
     
     for (int i = 0; i < size; ++i){
         Rresult ->m[i][i] = vNorm(v[i]);
-        vNumProduct(&temp, 1/(Rresult->m[i][i]), v[i]);
+        
+        if (cabs((*Rresult).m[i][i]) < 1E-6)
+            ;
+        else
+            vNumProduct(&temp, 1/(Rresult->m[i][i]), v[i]);
+        
         for (int j = i+1; j < size; ++j){
             (*Rresult).m[i][j] = vInnerProduct(v[j], &temp);
             for (int k = 0; k < size; ++k){
@@ -148,6 +153,7 @@ void vGS(mat *Qresult, mat *Rresult, mat *input){
         }
     }
     
+    //Free temporary vectors
     vFree(&temp);
     for (int i = 0; i < size; ++i){
         vFree(v[i]);
@@ -156,5 +162,24 @@ void vGS(mat *Qresult, mat *Rresult, mat *input){
 }
 
 
-//This function is defined to carry Householder Transformation on matrix
+//This function is defined get the Eigen Value of matrix via MGS method.
+void eigValueMGS(double _Complex * eigvalues, mat *T, int times){
+    int size = T ->row;
+    mat Q;
+    mat R;
+    mat temp;
+    mEqual(&temp, T);
+    
+    for (int i = 0; i < times; ++i){
+        MGS(&Q,&R,&temp);
+        mProduct(&temp, &R, &Q);
+    }
+    
+    for (int i = 0; i < size; ++i){
+        eigvalues[i] = temp.m[i][i];
+    }
+    
+}
+
+
 

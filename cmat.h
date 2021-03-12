@@ -60,7 +60,7 @@ void mSum( int n, mat *result, mat *A, ... );
 /*
  * This function was designed to get the product of the input matrix
  */
-//void mProduct( mat *result, mat *A, mat *B );
+void mProduct( mat *result, mat *A, mat *B );
 
 
 /*
@@ -153,6 +153,10 @@ void vJoint(int column, mat * result, vector *s[column]);
 
 
 //This function is defined to carry Gram-Schmidt procedure on vectors.
-void vGS(mat *Qresult, mat *Rresult, mat *input);
+void MGS(mat *Qresult, mat *Rresult, mat *input);
+
+
+//This function is defined get the Eigen Value of matrix via MGS method.
+void eigValueMGS(double _Complex * eigvalues, mat *T, int times);
 
 #endif /* cmat_h */
