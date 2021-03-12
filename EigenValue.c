@@ -58,6 +58,14 @@ void colVector(vector *result, mat *T, int i)
 }
 
 
+//This function is defined to get a vector product by a number
+void vNumProduct(vector *a, double num, vector *b){
+    vZero(a, (*b).row);
+    for (int i = 0; i < (*b).row; ++i){
+        (*a).v[i] = num*(*b).v[i];
+    }
+}
+
 //This function is defined to get the inner product of two vectors
 double _Complex vInnerProduct(vector *a, vector *b)
 {
@@ -106,43 +114,29 @@ void vJoint(int column, mat * result, vector *s[column])
 
 
 //This function is defined to carry Gram-Schmidt procedure on vectors.
-void vGS(mat *result, mat *input)
-{
-    if (input->row != input->col){
-        ;
+void vGS(mat *result, mat *input){
+    int size = input ->row;
+    vector *v[size];
+    
+    for (int i = 0; i < size; ++i){
+        colVector(v[i], input, i+1);
     }
-    else{
-        zeros(result, input -> row, input -> row);
-        vector temp;
-        vector temp0;
-        for (int i = 0; i < input -> row; i++){
-            for (int j = 0; j < input -> row; j++){
-                (*result).m[i][j] = (*input).m[i][j];
-            }
-        }
-        
-        for (int i = 0; i < input ->row; i++)
-        {
-            for (int j = 0; j < i; j++){
-                colVector(&temp, input, j+1);
-                colVector(&temp0, input, i+1);
-                double co =vInnerProduct(&temp0, &temp)/vInnerProduct(&temp, &temp);
-                for (int k = 0; k < input -> row; k++){
-                    (*result).m[k][i] = (*result).m[k][i] - co*(*result).m[k][j];
-                }
-            }
-        }
-        
-        for (int i = 0; i < input -> row; i++){
-            for (int j = 0; j < input -> row; j++){
-                colVector(&temp, result, i+1);
-                double norm = vNorm(&temp);
-                result->m[j][i] = (*result).m[j][i]/norm;
+    
+    zeros(result, size, size);
+    
+    vector temp;
+    for (int i = 0; i < size; ++i){
+        result ->m[i][i] = vNorm(v[i]);
+        vNumProduct(&temp, 1/(result->m[i][i]), v[i]);
+        for (int j = i+1; j < size; ++j){
+            (*result).m[i][j] = vInnerProduct(v[j], &temp);
+            for (int k = 0; k < size; ++k){
+                v[j] -> v[k] = v[j] -> v[k] - (*result).m[i][j]*temp.v[i];
             }
         }
     }
 }
 
 
-//This function is defined to carry Hessenberg Transformation on matrix
+//This function is defined to carry Householder Transformation on matrix
 
