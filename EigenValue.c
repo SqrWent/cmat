@@ -134,10 +134,6 @@ void MGS(mat *Qresult, mat *Rresult, mat *input){
         
             vNumProduct(&temp, 1/(Rresult->m[i][i]),&v[i]);
         
-        for (int j = 0; j < size; ++j){
-            printf("%lf\n",creal(temp.v[j]));
-        }
-        printf("\n");
         for (int j = i+1; j < size; ++j){
             (*Rresult).m[i][j] = vInnerProduct(&v[j], &temp);
             for (int k = 0; k < size; ++k){
@@ -149,16 +145,6 @@ void MGS(mat *Qresult, mat *Rresult, mat *input){
         }
         
     }
-    for (int k = 0; k < size; ++k){
-        for (int m = 0; m < size; ++m){
-            if (m == size-1){
-                printf("%lf\n",creal((*Rresult).m[k][m]));
-            }
-            else
-                printf("%lf ",creal((*Rresult).m[k][m]));
-        }
-    }
-    printf("\n");
     
     //Free temporary vectors
     vFree(&temp);
