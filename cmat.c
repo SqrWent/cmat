@@ -44,6 +44,17 @@ void zeros( mat *T, int row, int column )
 }
 
 
+//This function is defined to set matrix zero without initial the matrix.
+void mStaticZero(mat *T/* The input matrix*/){
+    for ( int i = 0; i < (*T).row; ++i )
+    {
+        for ( int j = 0; j < (*T).col; ++j )
+        {
+            (*T).m[i][j] = 0;
+        }
+    }
+}
+
 /*
  * Free matrix memory
  */
@@ -445,7 +456,6 @@ char mInverse( mat *result, mat * input1 )
                 }
             }
         }
-        reInitial( result, row, row ); /*Initial the result matrix*/
         subMat( result, &temp, 1, row, column + 1, 2 * column );
     }
 
@@ -476,7 +486,6 @@ void mTranspose( mat *result, mat *T )
  */
 void mEqual( mat * result, mat * T )
 {
-    reInitial( result, (*T).row, (*T).col );
     for ( int i = 0; i < (*T).row; ++i )
     {
         for ( int j = 0; j < (*T).col; ++j )

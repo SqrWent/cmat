@@ -30,6 +30,14 @@ void vZero( vector *T, int m )
 }
 
 
+void vStaticZero( vector *T ){
+    for ( int i = 0; i < (*T).row; ++i )
+    {
+        (*T).v[i] = 0;
+    }
+}
+
+
 /* This function is used to free vector memory */
 void vFree( vector *T )
 {
@@ -49,7 +57,7 @@ void vReInitial( vector *T, int n )
 /* This function is defined to get the i-th column vector of matrix A and save to result */
 void colVector( vector *result, mat *T, int i )
 {
-    vZero( result, (*T).row );
+    vStaticZero( result );
     for ( int k = 0; k < (*T).row; ++k )
     {
         (*result).v[k] = (*T).m[k][i - 1];
@@ -60,7 +68,7 @@ void colVector( vector *result, mat *T, int i )
 /* This function is defined to get a vector product by a number */
 void vNumProduct( vector *a, double num, vector *b )
 {
-    vZero( a, (*b).row );
+    vStaticZero( a );
     for ( int i = 0; i < (*b).row; ++i )
     {
         (*a).v[i] = num * (*b).v[i];
@@ -84,7 +92,7 @@ double _Complex vInnerProduct( vector *a, vector *b )
 double vNorm( vector *a )
 {
     double norm = cabs( vInnerProduct( a, a ) );
-    norm = pow( norm, 0.5 );
+    norm = cpow( norm, 0.5 );
     return(norm);
 }
 
@@ -116,5 +124,33 @@ void vJoint( int column, mat * result, vector *s[column] )
             }
         }
     }
+}
+
+//This function is defined to get the the Housholder matrix from a to b
+void vHousholder(mat *H /*The Householder Matrix*/, vector *a, vector *b){
+    vector vtemp;
+    vInitial(&vtemp, (*a).row);
+    
+    for (int i = 0; i < (*a).row; ++i)
+    {
+        vtemp.v[i] = (*a).v[i] - (*b).v[i];
+    }
+    
+    double norm = vNorm(&vtemp);
+    
+    vNumProduct(&vtemp, 1/norm, &vtemp);
+    
+    for (int i = 0; i < (*a).row; ++i)
+    {
+        for (int j = 0; j < (*a).row; ++j){
+            if (i == j){
+                (*H).m[i][j] = 1 - 2*vtemp.v[i]*conj(vtemp.v[j]);
+            }
+            else
+                (*H).m[i][j] = -2*vtemp.v[i]*conj(vtemp.v[j]);
+        }
+    }
+    
+    vFree(&vtemp);
 }
 

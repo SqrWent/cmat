@@ -132,6 +132,12 @@ void vInitial( vector *T, int m );
 /* This function is used to make zero vector. */
 void vZero( vector *T, int m );
 
+/*Should only cited by other functions within cmat*/
+void vStaticZero( vector *T );
+
+/*Should only cited by other functions within cmat*/
+void mStaticZero(mat *T/* The input matrix*/);
+
 
 /* This function is used to free vector memory */
 void vFree( vector *T );
@@ -166,6 +172,16 @@ void MGS( mat *Qresult, mat *Rresult, mat *input );
 
 /* This function is defined get the Eigen Value of matrix via MGS method. */
 void eigValueMGS( double _Complex * eigvalues, mat *T, int times );
+
+//This function is defined to get the the Housholder matrix from a to b
+void vHousholder(mat *H /*The Householder Matrix*/, vector *a, vector *b);
+
+/* This function is defined to do Housholder transformation to matrix inputed. */
+void mHousholder(mat * Qresult /*The unitary matrix*/,
+                 mat * Rresult /* The upper triangle matrix*/,
+                 mat * input /*The input matrix*/ );
+
+
 
 
 #endif /* cmat_h */
