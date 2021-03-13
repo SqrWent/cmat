@@ -1,25 +1,29 @@
-//
-//  cmat.h
-//  cmat
-//
-//  Created by 吕文韬 on 2021/3/9.
-//
+/*
+ *
+ *  cmat.h
+ *  cmat
+ *
+ *  Created by 吕文韬 on 2021/3/9.
+ *
+ */
 
 #ifndef cmat_h
 #define cmat_h
 
 /*Declare matrix structure*/
 typedef struct {
-    double _Complex    **m;
-    int    row, col;
+    double _Complex **m;
+    int        row, col;
 }
 mat;
 
-// Declare vector structure
-// By default, it's a column vector.
-typedef struct{
+/*
+ * Declare vector structure
+ * By default, it's a column vector.
+ */
+typedef struct {
     double _Complex *v;
-    int row;
+    int        row;
 }vector;
 
 
@@ -42,7 +46,7 @@ void mFree( mat *T );
 /*
  * Read matrix
  */
-//void mScanf( mat *T );
+/* void mScanf( mat *T ); */
 
 
 /*
@@ -100,19 +104,19 @@ char mInverse( mat *result, mat * input1 );
 
 
 /*
- This function is used to get the transpose of T and save the result to *result
+ * This function is used to get the transpose of T and save the result to *result
  */
-void mTranspose(mat *result,mat *T);
+void mTranspose( mat *result, mat *T );
 
 
 /*
- This function is used to equal two matrixs
+ * This function is used to equal two matrixs
  */
-void mEqual(mat * result,mat * T);
+void mEqual( mat * result, mat * T );
 
 
-//This function is defined to get the i-th column vector of matrix A and save to result
-void colVector(vector * result, mat * T, int i);
+/* This function is defined to get the i-th column vector of matrix A and save to result */
+void colVector( vector * result, mat * T, int i );
 
 
 /*
@@ -121,42 +125,44 @@ void colVector(vector * result, mat * T, int i);
 int mRank( mat *T );
 
 
-//This function is defined to initial a vector
-void vInitial(vector *T, int m);
+/* This function is defined to initial a vector */
+void vInitial( vector *T, int m );
 
 
-//This function is used to make zero vector.
-void vZero(vector *T, int m);
+/* This function is used to make zero vector. */
+void vZero( vector *T, int m );
 
 
-//This function is used to free vector memory
-void vFree(vector *T);
+/* This function is used to free vector memory */
+void vFree( vector *T );
 
 
-//This function is used to reInitial the vector memory
-void vReInitial(vector *T, int n);
+/* This function is used to reInitial the vector memory */
+void vReInitial( vector *T, int n );
 
 
-//This function is defined to get the i-th column vector of matrix A and save to result
-void colVector(vector *result, mat *T, int i);
+/* This function is defined to get the i-th column vector of matrix A and save to result */
+void colVector( vector *result, mat *T, int i );
 
 
-//This function is defined to get the inner product of two vectors
-double _Complex vInnerProduct(vector *a, vector *b);
-
-//This function is defined to get the norm of a vector
-double vNorm(vector *a);
+/* This function is defined to get the inner product of two vectors */
+double _Complex vInnerProduct( vector *a, vector *b );
 
 
-//This function is defined to get vectors joint
-void vJoint(int column, mat * result, vector *s[column]);
+/* This function is defined to get the norm of a vector */
+double vNorm( vector *a );
 
 
-//This function is defined to carry Gram-Schmidt procedure on vectors.
-void MGS(mat *Qresult, mat *Rresult, mat *input);
+/* This function is defined to get vectors joint */
+void vJoint( int column, mat * result, vector *s[column] );
 
 
-//This function is defined get the Eigen Value of matrix via MGS method.
-void eigValueMGS(double _Complex * eigvalues, mat *T, int times);
+/* This function is defined to carry Gram-Schmidt procedure on vectors. */
+void MGS( mat *Qresult, mat *Rresult, mat *input );
+
+
+/* This function is defined get the Eigen Value of matrix via MGS method. */
+void eigValueMGS( double _Complex * eigvalues, mat *T, int times );
+
 
 #endif /* cmat_h */

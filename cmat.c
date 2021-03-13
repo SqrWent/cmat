@@ -1,9 +1,11 @@
-//
-//  cmat.c
-//  cmat
-//
-//  Created by 吕文韬 on 2021/3/9.
-//
+/*
+ *
+ *  cmat.c
+ *  cmat
+ *
+ *  Created by 吕文韬 on 2021/3/9.
+ *
+ */
 
 #include "cmat.h"
 #include <stdio.h>
@@ -60,19 +62,22 @@ void mFree( mat *T )
 /*
  * Read matrix
  */
+
+
 /*
- Function temporarily unavailabe since compex number added.
-void mScanf( mat *T )
-{
-    for ( int i = 0; i < (*T).row; ++i )
-    {
-        for ( int j = 0; j < (*T).col; ++j )
-        {
-            scanf( "%lf", &(*T).m[i][j] );
-        }
-    }
-}
-*/
+ * Function temporarily unavailabe since compex number added.
+ * void mScanf( mat *T )
+ * {
+ *  for ( int i = 0; i < (*T).row; ++i )
+ *  {
+ *      for ( int j = 0; j < (*T).col; ++j )
+ *      {
+ *          scanf( "%lf", &(*T).m[i][j] );
+ *      }
+ *  }
+ * }
+ */
+
 
 /*
  * This function was defined to re-initial the matrix
@@ -183,8 +188,8 @@ void mProduct( mat *result, mat *A, mat *B )
  */
 int upTra( mat *T )
 {
-    double _Complex    temp;
-    int    exp = 1;
+    double _Complex temp;
+    int        exp = 1;
     for ( int i = 0; i < (*T).row; ++i )
     {
         if ( (*T).m[i][i] != 0 )
@@ -255,8 +260,8 @@ double _Complex det( mat *T )
                 Temp.m[i][j] = (*T).m[i][j];
             }
         }
-        int    exp    = upTra( &Temp );
-        double _Complex    det    = 1;
+        int        exp    = upTra( &Temp );
+        double _Complex det    = 1;
         for ( int i = 0; i < (*T).row; ++i )
         {
             det = det * Temp.m[i][i];
@@ -270,26 +275,28 @@ double _Complex det( mat *T )
 /*
  * print a matrix
  */
+
+
 /*
- Function temporarily unavilavle since complex number added.
-void mPrint( mat *T )
-{
-    int    row    = (*T).row;
-    int    column    = (*T).col;
-    for ( int i = 0; i < row; ++i )
-    {
-        for ( int j = 0; j < column; ++j )
-        {
-            if ( j == column - 1 )
-            {
-                printf( "%8.5lf\n", (*T).m[i][j] );
-            }else {
-                printf( "%8.5lf\t", (*T).m[i][j] );
-            }
-        }
-    }
-    printf( "\n" );
-}
+ * Function temporarily unavilavle since complex number added.
+ * void mPrint( mat *T )
+ * {
+ *  int    row    = (*T).row;
+ *  int    column    = (*T).col;
+ *  for ( int i = 0; i < row; ++i )
+ *  {
+ *      for ( int j = 0; j < column; ++j )
+ *      {
+ *          if ( j == column - 1 )
+ *          {
+ *              printf( "%8.5lf\n", (*T).m[i][j] );
+ *          }else {
+ *              printf( "%8.5lf\t", (*T).m[i][j] );
+ *          }
+ *      }
+ *  }
+ *  printf( "\n" );
+ * }
  */
 
 
@@ -390,8 +397,8 @@ char mInverse( mat *result, mat * input1 )
     _Bool    ifInvert    = 1;
     int    row        = (*input1).row;
     int    column        = (*input1).col;
-    mat    Id;              /*Identity Matrix*/
-    zeros( &Id, row, row );  /*Initial the identity matrix and set zero*/
+    mat    Id;             /*Identity Matrix*/
+    zeros( &Id, row, row ); /*Initial the identity matrix and set zero*/
 
     for ( int i = 0; i < row; ++i )
     {
@@ -410,11 +417,11 @@ char mInverse( mat *result, mat * input1 )
     upTra( &temp );
     for ( int i = 0; i < row; ++i )
     {
-        if ( cabs(temp.m[i][i]) < 1E-6 )
+        if ( cabs( temp.m[i][i] ) < 1E-6 )
         {
             ifInvert = 0;
             break;
-        }else  {
+        }else {
             tras = temp.m[i][i];
             for ( int k = 0; k < 2 * row; ++k )
             {
@@ -426,7 +433,7 @@ char mInverse( mat *result, mat * input1 )
     {
         mFree( result );
         zeros( result, row, row );
-    }else  {
+    }else {
         for ( int i = column - 1; i > 0; --i )
         {
             for ( int j = 0; j < i; ++j )
@@ -449,12 +456,15 @@ char mInverse( mat *result, mat * input1 )
 
 
 /*
- This function is used to get the transpose of T and save the result to *result
+ * This function is used to get the transpose of T and save the result to *result
  */
-void mTranspose(mat *result,mat *T){
-    reInitial(result, (*T).col, (*T).row);
-    for (int i = 0; i < (*T).col; ++i){
-        for (int j = 0; j < (*T).row; ++j){
+void mTranspose( mat *result, mat *T )
+{
+    reInitial( result, (*T).col, (*T).row );
+    for ( int i = 0; i < (*T).col; ++i )
+    {
+        for ( int j = 0; j < (*T).row; ++j )
+        {
             (*result).m[j][i] = (*T).m[i][j];
         }
     }
@@ -462,13 +472,18 @@ void mTranspose(mat *result,mat *T){
 
 
 /*
- This function is used to equal two matrixs
+ * This function is used to equal two matrixs
  */
-void mEqual(mat * result,mat * T){
-    reInitial(result, (*T).row,(*T).col);
-    for (int i = 0; i < (*T).row; ++i){
-        for (int j = 0; j < (*T).col; ++j){
+void mEqual( mat * result, mat * T )
+{
+    reInitial( result, (*T).row, (*T).col );
+    for ( int i = 0; i < (*T).row; ++i )
+    {
+        for ( int j = 0; j < (*T).col; ++j )
+        {
             (*result).m[i][j] = (*T).m[i][j];
         }
     }
 }
+
+
