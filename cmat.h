@@ -56,7 +56,7 @@ void reInitial( mat *T, int row, int column );
 
 
 /*
- * The function was defined to get the sum of matrix inputed
+ * The fmProductfined to get the sum of matrix inputed
  */
 void mSum( int n, mat *result, mat *A, ... );
 
@@ -155,6 +155,9 @@ double vNorm( vector *a );
 
 /* This function is defined to get vectors joint */
 void vJoint( int column, mat * result, vector *s[column] );
+
+/* This function is defined to get a vector product by a number */
+void vNumProduct( vector *a, double num, vector *b );
 
 
 /* This function is defined to carry Gram-Schmidt procedure on vectors. */
