@@ -46,7 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				75A389D725F7A63B0082AD33 /* cmat.h */,
-				75C92EAF25FDBDB600D0C062 /* Basic */,
+				75C92EBD25FDBF5D00D0C062 /* Basic */,
 				75C92EAD25FDBD4900D0C062 /* EigenValue */,
 				757CF79125FA41A80014569E /* LICENSE */,
 				757CF79025FA41A80014569E /* README.md */,
@@ -72,7 +72,7 @@
 			path = EigenValue;
 			sourceTree = "<group>";
 		};
-		75C92EAF25FDBDB600D0C062 /* Basic */ = {
+		75C92EBD25FDBF5D00D0C062 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
 				75C92EA925FD129D00D0C062 /* cvector.c */,
