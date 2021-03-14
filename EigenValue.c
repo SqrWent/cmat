@@ -156,7 +156,7 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
 }
 
 
-/* This function is defined get the Eigen Value of matrix via Householder method. */
+/* This function is defined to get the Eigen Value of matrix via Householder method. */
 void eigValueHS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
          mat *T/*The target matrix*/,
          int times/*The iteration times*/ )
@@ -178,3 +178,120 @@ void eigValueHS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
 }
 
 
+/*This function is defined to do QR decomposition on a matrix via Givens means*/
+void mGivens(mat * Qresult/*The unitary matrix*/,
+             mat * Rresult/*The tpper triangle matrix*/,
+             mat * input/*The input matrix*/)
+{
+    int size = (*input).row;
+    
+    /*
+     Initial Qresult and Rresult
+     */
+    for ( int i = 0; i < size; ++i )
+    {
+        for ( int j = 0; j < size; ++j )
+        {
+            if ( i != j )
+            {
+                (*Qresult).m[i][j] = 0;
+            }else
+                (*Qresult).m[i][j] = 1;
+
+            (*Rresult).m[i][j] = (*input).m[i][j];
+        }
+    }
+    
+    mat Givens;
+    zeros(&Givens, size, size);
+    double _Complex c,s;
+    c = 0;
+    s = 0;
+    double norm1,norm2;
+    double _Complex temp;
+    temp = 0;
+    norm1 = 0;
+    norm2 = 0;
+    
+    for (int i = 0; i < size; ++i)
+    {
+        
+        mStaticZero(&Givens);
+        for (int j = 0; j < size; ++j)
+        {
+            Givens.m[j][j] = 1;
+        }
+        
+        for (int j = i + 1; j < size; ++j)
+        {
+            
+            // Check if denominator == 0
+            if (cabs((*Rresult).m[j][i]) == 0 && cabs((*Rresult).m[i][i]) == 0)
+            {
+                c = 1;
+                s = 0;
+            }
+            else
+            {
+                norm1 = cabs((*Rresult).m[i][i]);
+                norm2 = cabs((*Rresult).m[j][i]);
+                
+                c = (*Rresult).m[i][i]/sqrt(pow(norm1, 1)+pow(norm2, 2));
+                s = (*Rresult).m[j][i]/sqrt(pow(norm1, 1)+pow(norm2, 2));
+            }
+            
+            // Set Value for Givens Matrix
+            if (j == i + 1)
+            {
+                Givens.m[i][i] = conj(c);
+                Givens.m[j][j] = c;
+                Givens.m[i][j] = conj(s);
+                Givens.m[j][i] = -s;
+            }
+            else
+            {
+                Givens.m[i][i] = conj(c);
+                Givens.m[j][j] = c;
+                Givens.m[i][j] = conj(s);
+                Givens.m[j][i] = -s;
+                Givens.m[j-1][j-1] = 1;
+                Givens.m[i][j-1] = 0;
+                Givens.m[j-1][i] = 0;
+            }
+            
+            mProduct(Rresult, &Givens, Rresult);
+            
+            //Transpose Givens Matrix.
+            Givens.m[i][i] = c;
+            Givens.m[j][j] = conj(c);
+            Givens.m[i][j] = -conj(s);
+            Givens.m[j][i] = s;
+            
+            mProduct(Qresult, Qresult, &Givens);
+            
+        }
+    }
+    
+}
+
+
+/* This function is defined to get the Eigen Value of matrix via Given method. */
+void eigValueGVS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
+         mat *T/*The target matrix*/,
+         int times/*The iteration times*/ )
+{
+    mat Q, R, temp;
+    mEqual( &temp, T );
+    int size = T->row;
+
+    for ( int i = 0; i < times; ++i )
+    {
+        mGivens( &Q, &R, &temp );
+        mProduct( &temp, &Q, &R );
+    }
+
+    for ( int i = 0; i < size; ++i )
+    {
+        eigvalues[i] = temp.m[i][i];
+    }
+}
