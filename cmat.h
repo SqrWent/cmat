@@ -182,6 +182,21 @@ void mHousholder(mat * Qresult /*The unitary matrix*/,
                  mat * input /*The input matrix*/ );
 
 
+/* This function is defined to get the Eigen Value of matrix via Householder method. */
+void eigValueHS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
+                mat *T/*The target matrix*/,
+                int times/*The iteration times*/ );
 
+
+/*This function is defined to do QR decomposition on a matrix via Givens means*/
+void mGivens(mat * Qresult/*The unitary matrix*/,
+             mat * Rresult/*The tpper triangle matrix*/,
+             mat * input/*The input matrix*/);
+
+
+/* This function is defined to get the Eigen Value of matrix via Given method. */
+void eigValueGVS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
+                 mat *T/*The target matrix*/,
+                 int times/*The iteration times*/ );
 
 #endif /* cmat_h */
