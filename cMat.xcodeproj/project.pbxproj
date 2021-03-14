@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		75A389D925F7A63B0082AD33 /* cmat.h in Headers */ = {isa = PBXBuildFile; fileRef = 75A389D725F7A63B0082AD33 /* cmat.h */; };
-		75A389DA25F7A63B0082AD33 /* cmat.c in Sources */ = {isa = PBXBuildFile; fileRef = 75A389D825F7A63B0082AD33 /* cmat.c */; };
 		75A389DD25F7A67C0082AD33 /* EigenValue.c in Sources */ = {isa = PBXBuildFile; fileRef = 75A389DC25F7A67C0082AD33 /* EigenValue.c */; };
-		75C92EAA25FD129D00D0C062 /* cvector.c in Sources */ = {isa = PBXBuildFile; fileRef = 75C92EA925FD129D00D0C062 /* cvector.c */; };
 		75C92EB425FDBE7E00D0C062 /* SVD.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C92EB225FDBE7E00D0C062 /* SVD.h */; };
 		75C92EB525FDBE7E00D0C062 /* SVD.c in Sources */ = {isa = PBXBuildFile; fileRef = 75C92EB325FDBE7E00D0C062 /* SVD.c */; };
-		75C92EBA25FDBEB100D0C062 /* ctensor.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C92EB825FDBEB100D0C062 /* ctensor.h */; };
-		75C92EBB25FDBEB100D0C062 /* ctensor.c in Sources */ = {isa = PBXBuildFile; fileRef = 75C92EB925FDBEB100D0C062 /* ctensor.c */; };
+		75C92EC425FDC13C00D0C062 /* ctensor.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C92EC025FDC13C00D0C062 /* ctensor.h */; };
+		75C92EC525FDC13C00D0C062 /* cmat.c in Sources */ = {isa = PBXBuildFile; fileRef = 75C92EC125FDC13C00D0C062 /* cmat.c */; };
+		75C92EC625FDC13C00D0C062 /* cvector.c in Sources */ = {isa = PBXBuildFile; fileRef = 75C92EC225FDC13C00D0C062 /* cvector.c */; };
+		75C92EC725FDC13C00D0C062 /* ctensor.c in Sources */ = {isa = PBXBuildFile; fileRef = 75C92EC325FDC13C00D0C062 /* ctensor.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,13 +22,13 @@
 		757CF79125FA41A80014569E /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		75A389CF25F7A62A0082AD33 /* libcMat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcMat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A389D725F7A63B0082AD33 /* cmat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cmat.h; sourceTree = "<group>"; };
-		75A389D825F7A63B0082AD33 /* cmat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cmat.c; sourceTree = "<group>"; };
 		75A389DC25F7A67C0082AD33 /* EigenValue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = EigenValue.c; sourceTree = "<group>"; };
-		75C92EA925FD129D00D0C062 /* cvector.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cvector.c; sourceTree = "<group>"; };
 		75C92EB225FDBE7E00D0C062 /* SVD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVD.h; sourceTree = "<group>"; };
 		75C92EB325FDBE7E00D0C062 /* SVD.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = SVD.c; sourceTree = "<group>"; };
-		75C92EB825FDBEB100D0C062 /* ctensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ctensor.h; sourceTree = "<group>"; };
-		75C92EB925FDBEB100D0C062 /* ctensor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ctensor.c; sourceTree = "<group>"; };
+		75C92EC025FDC13C00D0C062 /* ctensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ctensor.h; path = Basic/ctensor.h; sourceTree = "<group>"; };
+		75C92EC125FDC13C00D0C062 /* cmat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cmat.c; path = Basic/cmat.c; sourceTree = "<group>"; };
+		75C92EC225FDC13C00D0C062 /* cvector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cvector.c; path = Basic/cvector.c; sourceTree = "<group>"; };
+		75C92EC325FDC13C00D0C062 /* ctensor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ctensor.c; path = Basic/ctensor.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,10 +75,10 @@
 		75C92EBD25FDBF5D00D0C062 /* Basic */ = {
 			isa = PBXGroup;
 			children = (
-				75C92EA925FD129D00D0C062 /* cvector.c */,
-				75A389D825F7A63B0082AD33 /* cmat.c */,
-				75C92EB825FDBEB100D0C062 /* ctensor.h */,
-				75C92EB925FDBEB100D0C062 /* ctensor.c */,
+				75C92EC125FDC13C00D0C062 /* cmat.c */,
+				75C92EC325FDC13C00D0C062 /* ctensor.c */,
+				75C92EC025FDC13C00D0C062 /* ctensor.h */,
+				75C92EC225FDC13C00D0C062 /* cvector.c */,
 			);
 			name = Basic;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75C92EBA25FDBEB100D0C062 /* ctensor.h in Headers */,
+				75C92EC425FDC13C00D0C062 /* ctensor.h in Headers */,
 				75C92EB425FDBE7E00D0C062 /* SVD.h in Headers */,
 				75A389D925F7A63B0082AD33 /* cmat.h in Headers */,
 			);
@@ -152,10 +152,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75C92EAA25FD129D00D0C062 /* cvector.c in Sources */,
+				75C92EC725FDC13C00D0C062 /* ctensor.c in Sources */,
 				75A389DD25F7A67C0082AD33 /* EigenValue.c in Sources */,
-				75A389DA25F7A63B0082AD33 /* cmat.c in Sources */,
-				75C92EBB25FDBEB100D0C062 /* ctensor.c in Sources */,
+				75C92EC525FDC13C00D0C062 /* cmat.c in Sources */,
+				75C92EC625FDC13C00D0C062 /* cvector.c in Sources */,
 				75C92EB525FDBE7E00D0C062 /* SVD.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -170,6 +170,12 @@ void mSum( int n, mat *result, mat *A, ... )
  */
 void mProduct( mat *result, mat *A, mat *B )
 {
+    
+    int row = (*A).row;
+    int col = (*B).col;
+    mat temp;
+    zeros(&temp, row, col);
+    
     if ( (*A).col != (*B).row )
     {
         printf( "Matrixs don't have the required dimension.\n" );
@@ -177,20 +183,22 @@ void mProduct( mat *result, mat *A, mat *B )
         p    = NULL;
         p[0]    = 0;
     }else {
+        
         int m_len = (*A).col;
-        mFree( result );
-        zeros( result, (*A).row, (*B).col );
+        
         for ( int i = 0; i < (*A).row; ++i )
         {
             for ( int j = 0; j < (*B).col; ++j )
             {
                 for ( int k = 0; k < m_len; ++k )
                 {
-                    (*result).m[i][j] += (*A).m[i][k] * (*B).m[k][j];
+                    temp.m[i][j] += (*A).m[i][k] * (*B).m[k][j];
                 }
             }
         }
     }
+    mEqual(result, &temp);
+    mFree(&temp);
 }
 
 

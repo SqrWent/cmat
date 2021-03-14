@@ -68,7 +68,6 @@ void colVector( vector *result, mat *T, int i )
 /* This function is defined to get a vector product by a number */
 void vNumProduct( vector *a, double num, vector *b )
 {
-    vStaticZero( a );
     for ( int i = 0; i < (*b).row; ++i )
     {
         (*a).v[i] = num * (*b).v[i];
@@ -127,7 +126,8 @@ void vJoint( int column, mat * result, vector *s[column] )
 }
 
 //This function is defined to get the the Housholder matrix from a to b
-void vHousholder(mat *H /*The Householder Matrix*/, vector *a, vector *b){
+void vHousholder(mat *H /*The Householder Matrix*/, vector *a, vector *b)
+{
     vector vtemp;
     vInitial(&vtemp, (*a).row);
     

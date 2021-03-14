@@ -30,11 +30,12 @@ void MGS( mat *Qresult, mat *Rresult, mat *input )
     mStaticZero( Rresult );
 
     vector temp;
-
+    vInitial(&temp, size);
+    
     for ( int i = 0; i < size; ++i )
     {
         Rresult->m[i][i] = vNorm( &v[i] );
-
+        
         vNumProduct( &temp, 1 / (Rresult->m[i][i]), &v[i] );
 
         for ( int j = i + 1; j < size; ++j )
@@ -65,6 +66,10 @@ void MGS( mat *Qresult, mat *Rresult, mat *input )
 void eigValueMGS( double _Complex * eigvalues, mat *T, int times )
 {
     mat Q, R, temp;
+    initial(&temp, (*T).row, (*T).row);
+    initial(&Q, (*T).row, (*T).row);
+    initial(&R, (*T).row, (*T).row);
+    
     mEqual( &temp, T );
     int size = T->row;
 
@@ -107,29 +112,28 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
         }
     }
 
+    int i = 0;
     vector    temp;
     vector    e;
     mat    mTemp;
     mat    H;
     initial( &H, size, size );
     double norm;
-    for ( int i = 0; i < size; ++i )
+    
+    for (i = 0; i < size - 1; ++i)
     {
         vInitial( &temp, size - i );
         vZero( &e, size - i );
         initial( &mTemp, size - i, size - i );
-
+        
+        int k;
         /* get the value of temp and e */
-        for ( int k = i; k < size; ++k )
-        {
-            temp.v[k] = (*Rresult).m[k][i];
-        }
+        for ( k = i; k < size; ++k )
+            temp.v[k-i] = (*Rresult).m[k][i];
+        
         norm    = vNorm( &temp );
         e.v[0]    = norm;
-
-
         vHousholder( &mTemp, &temp, &e );
-
         for ( int k = 0; k < size; ++k )
         {
             for ( int j = 0; j < size; ++j )
@@ -137,10 +141,12 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
                 if ( k >= i && j >= i )
                 {
                     H.m[k][j] = mTemp.m[k - i][j - i];
-                }else if ( k == j )
+                }
+                else if ( k == j )
                 {
                     H.m[k][j] = 1;
-                }else
+                }
+                else
                     H.m[k][j] = 0;
             }
         }
@@ -152,6 +158,7 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
         vFree( &temp );
         vFree( &e );
     }
+    
     mFree( &H );
 }
 
@@ -162,6 +169,10 @@ void eigValueHS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
          int times/*The iteration times*/ )
 {
     mat Q, R, temp;
+    initial(&temp, (*T).row, (*T).row);
+    initial(&Q, (*T).row, (*T).row);
+    initial(&R, (*T).row, (*T).row);
+    
     mEqual( &temp, T );
     int size = T->row;
 
@@ -236,8 +247,8 @@ void mGivens(mat * Qresult/*The unitary matrix*/,
                 norm1 = cabs((*Rresult).m[i][i]);
                 norm2 = cabs((*Rresult).m[j][i]);
                 
-                c = (*Rresult).m[i][i]/sqrt(pow(norm1, 1)+pow(norm2, 2));
-                s = (*Rresult).m[j][i]/sqrt(pow(norm1, 1)+pow(norm2, 2));
+                c = (*Rresult).m[i][i]/sqrt(pow(norm1, 2)+pow(norm2, 2));
+                s = (*Rresult).m[j][i]/sqrt(pow(norm1, 2)+pow(norm2, 2));
             }
             
             // Set Value for Givens Matrix
@@ -281,6 +292,9 @@ void eigValueGVS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
          int times/*The iteration times*/ )
 {
     mat Q, R, temp;
+    initial(&temp, (*T).row, (*T).row);
+    initial(&Q, (*T).row, (*T).row);
+    initial(&R, (*T).row, (*T).row);
     mEqual( &temp, T );
     int size = T->row;
 
