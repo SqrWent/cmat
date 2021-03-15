@@ -173,7 +173,7 @@ void MGS( mat *Qresult, mat *Rresult, mat *input );
 #define _DEFVALUE(arg,defvalue) ( (#arg[0]) ? (arg + 0) : defvalue)//The macro defined to set defvalue for args.
 
 #ifndef eigValueMGS
-#define eigValueMGS(arg1, arg2) _eigValueMGS(arg1, _DEFVALUE(arg2, 1000))
+#define eigValueMGS(arg0, arg1, arg2) _eigValueMGS(arg1, _DEFVALUE(arg2, 1000))
 
 /* This function is defined get the Eigen Value of matrix via MGS method. */
 void _eigValueMGS( double _Complex * eigvalues, mat *T, int times );
@@ -190,7 +190,7 @@ void mHousholder(mat * Qresult /*The unitary matrix*/,
                  mat * input /*The input matrix*/ );
 
 #ifndef eigValueHS
-#define eigValueHS(arg1, arg2) _eigValueHS(arg1, _DEFVALUE(arg2, 1000))
+#define eigValueHS(arg0, arg1, arg2) _eigValueHS(arg1, _DEFVALUE(arg2, 1000))
 
 /* This function is defined to get the Eigen Value of matrix via Householder method. */
 void _eigValueHS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
@@ -205,7 +205,7 @@ void mGivens(mat * Qresult/*The unitary matrix*/,
              mat * input/*The input matrix*/);
 
 #ifndef eigValueGVS
-#define eigValueGVS(arg1, arg2) _eigValueGVS(arg1, _DEFVALUE(arg2, 1000))
+#define eigValueGVS(arg0, arg1, arg2) _eigValueGVS(arg1, _DEFVALUE(arg2, 1000))
 
 /* This function is defined to get the Eigen Value of matrix via Given method. */
 void _eigValueGVS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
