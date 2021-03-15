@@ -107,14 +107,14 @@ void mSum( int n, mat *result, mat *A, ... )
 {
     va_list arg_ptr;
     va_start( arg_ptr, A );
-
+    
     int    row    = (*A).row;
     int    column    = (*A).col;
-
+    
     reInitial( result, row, column );
     int i, j;
-
-
+    
+    
     /*
      * The code was used to check the dimension of matrixs.
      */
@@ -137,8 +137,8 @@ void mSum( int n, mat *result, mat *A, ... )
             p[0]    = 0;
         }
     }
-
-
+    
+    
     /*
      * Sum all the matrix and change value of result.
      */
@@ -358,10 +358,10 @@ void mJoint( int row, int column, mat *result, mat *T[row][column] )
         }
         row_result += k;
     }
-
+    
     reInitial( result, row_result, column_result );
-
-
+    
+    
     /*
      * Join matrixs into result
      */
@@ -418,21 +418,21 @@ char mInverse( mat *result, mat * input1 )
     int    column        = (*input1).col;
     mat    Id;             /*Identity Matrix*/
     zeros( &Id, row, row ); /*Initial the identity matrix and set zero*/
-
+    
     for ( int i = 0; i < row; ++i )
     {
         Id.m[i][i] = 1;
     }
-
+    
     mat temp;
     initial( &temp, row, 2 * row );
     mat *arr[1][2];
     arr[0][0]    = input1;
     arr[0][1]    = &Id;
-
+    
     mJoint( 1, 2, &temp, arr );
-
-
+    
+    
     upTra( &temp );
     for ( int i = 0; i < row; ++i )
     {
@@ -466,7 +466,7 @@ char mInverse( mat *result, mat * input1 )
         }
         subMat( result, &temp, 1, row, column + 1, 2 * column );
     }
-
+    
     mFree( &temp );
     mFree( &Id );
     return(ifInvert);

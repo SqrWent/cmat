@@ -25,10 +25,10 @@ void MGS( mat *Qresult, mat *Rresult, mat *input )
         vInitial( &v[i], size );
         colVector( &v[i], input, i + 1 );
     }
-
+    
     mStaticZero( Qresult );
     mStaticZero( Rresult );
-
+    
     vector temp;
     vInitial(&temp, size);
     
@@ -37,7 +37,7 @@ void MGS( mat *Qresult, mat *Rresult, mat *input )
         Rresult->m[i][i] = vNorm( &v[i] );
         
         vNumProduct( &temp, 1 / (Rresult->m[i][i]), &v[i] );
-
+        
         for ( int j = i + 1; j < size; ++j )
         {
             (*Rresult).m[i][j] = vInnerProduct( &v[j], &temp );
@@ -51,7 +51,7 @@ void MGS( mat *Qresult, mat *Rresult, mat *input )
             Qresult->m[k][i] = temp.v[k];
         }
     }
-
+    
     /* Free temporary vectors */
     vFree( &temp );
     for ( int i = 0; i < size; ++i )
@@ -63,7 +63,7 @@ void MGS( mat *Qresult, mat *Rresult, mat *input )
 
 
 /* This function is defined get the Eigen Value of matrix via MGS method. */
-void eigValueMGS( double _Complex * eigvalues, mat *T, int times )
+void _eigValueMGS( double _Complex * eigvalues, mat *T, int times )
 {
     mat Q, R, temp;
     initial(&temp, (*T).row, (*T).row);
@@ -72,13 +72,13 @@ void eigValueMGS( double _Complex * eigvalues, mat *T, int times )
     
     mEqual( &temp, T );
     int size = T->row;
-
+    
     for ( int i = 0; i < times; ++i )
     {
         MGS( &Q, &R, &temp );
         mProduct( &temp, &Q, &R );
     }
-
+    
     for ( int i = 0; i < size; ++i )
     {
         eigvalues[i] = temp.m[i][i];
@@ -88,12 +88,12 @@ void eigValueMGS( double _Complex * eigvalues, mat *T, int times )
 
 /* This function is defined to do Housholder transformation to matrix inputed. */
 void mHousholder( mat * Qresult /*The unitary matrix*/,
-          mat * Rresult /* The upper triangle matrix*/,
-          mat * input /*The input matrix*/ )
+                 mat * Rresult /* The upper triangle matrix*/,
+                 mat * input /*The input matrix*/ )
 {
     int size = (*input).row;
-
-
+    
+    
     /*
      * Initial the Q to be an identity matrix
      * Initial R to be equal to input
@@ -107,11 +107,11 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
                 (*Qresult).m[i][j] = 0;
             }else
                 (*Qresult).m[i][j] = 1;
-
+            
             (*Rresult).m[i][j] = (*input).m[i][j];
         }
     }
-
+    
     int i = 0;
     vector    temp;
     vector    e;
@@ -129,7 +129,7 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
         int k;
         /* get the value of temp and e */
         for ( k = i; k < size; ++k )
-            temp.v[k-i] = (*Rresult).m[k][i];
+        temp.v[k-i] = (*Rresult).m[k][i];
         
         norm    = vNorm( &temp );
         e.v[0]    = norm;
@@ -150,10 +150,10 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
                     H.m[k][j] = 0;
             }
         }
-
+        
         mProduct( Rresult, &H, Rresult );
         mProduct( Qresult, Qresult, &H );
-
+        
         mFree( &mTemp );
         vFree( &temp );
         vFree( &e );
@@ -164,9 +164,9 @@ void mHousholder( mat * Qresult /*The unitary matrix*/,
 
 
 /* This function is defined to get the Eigen Value of matrix via Householder method. */
-void eigValueHS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
-         mat *T/*The target matrix*/,
-         int times/*The iteration times*/ )
+void _eigValueHS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
+                mat *T/*The target matrix*/,
+                int times/*The iteration times*/ )
 {
     mat Q, R, temp;
     initial(&temp, (*T).row, (*T).row);
@@ -175,13 +175,13 @@ void eigValueHS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
     
     mEqual( &temp, T );
     int size = T->row;
-
+    
     for ( int i = 0; i < times; ++i )
     {
         mHousholder( &Q, &R, &temp );
         mProduct( &temp, &Q, &R );
     }
-
+    
     for ( int i = 0; i < size; ++i )
     {
         eigvalues[i] = temp.m[i][i];
@@ -208,7 +208,7 @@ void mGivens(mat * Qresult/*The unitary matrix*/,
                 (*Qresult).m[i][j] = 0;
             }else
                 (*Qresult).m[i][j] = 1;
-
+            
             (*Rresult).m[i][j] = (*input).m[i][j];
         }
     }
@@ -287,9 +287,9 @@ void mGivens(mat * Qresult/*The unitary matrix*/,
 
 
 /* This function is defined to get the Eigen Value of matrix via Given method. */
-void eigValueGVS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
-         mat *T/*The target matrix*/,
-         int times/*The iteration times*/ )
+void _eigValueGVS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
+                 mat *T/*The target matrix*/,
+                 int times/*The iteration times*/ )
 {
     mat Q, R, temp;
     initial(&temp, (*T).row, (*T).row);
@@ -297,13 +297,13 @@ void eigValueGVS( double _Complex * eigvalues/* The pointer to eigenvalues*/,
     initial(&R, (*T).row, (*T).row);
     mEqual( &temp, T );
     int size = T->row;
-
+    
     for ( int i = 0; i < times; ++i )
     {
         mGivens( &Q, &R, &temp );
         mProduct( &temp, &Q, &R );
     }
-
+    
     for ( int i = 0; i < size; ++i )
     {
         eigvalues[i] = temp.m[i][i];

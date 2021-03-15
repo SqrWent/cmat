@@ -110,7 +110,7 @@ void vJoint( int column, mat * result, vector *s[column] )
             flag        = 0;
         }
     }
-
+    
     if ( flag == 0 )
     {
     }else  {

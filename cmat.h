@@ -169,9 +169,17 @@ void vNumProduct( vector *a, double num, vector *b );
 /* This function is defined to carry Gram-Schmidt procedure on vectors. */
 void MGS( mat *Qresult, mat *Rresult, mat *input );
 
+#ifndef _DEFVALUE
+#define _DEFVALUE(arg,defvalue) ( (#arg[0]) ? (arg + 0) : defvalue)//The macro defined to set defvalue for args.
+
+#ifndef eigValueMGS
+#define eigValueMGS(arg1, arg2) _eigValueMGS(arg1, _DEFVALUE(arg2, 1000))
 
 /* This function is defined get the Eigen Value of matrix via MGS method. */
-void eigValueMGS( double _Complex * eigvalues, mat *T, int times );
+void _eigValueMGS( double _Complex * eigvalues, mat *T, int times );
+
+#endif /* eigValueMGS */
+
 
 //This function is defined to get the the Housholder matrix from a to b
 void vHousholder(mat *H /*The Householder Matrix*/, vector *a, vector *b);
@@ -181,22 +189,30 @@ void mHousholder(mat * Qresult /*The unitary matrix*/,
                  mat * Rresult /* The upper triangle matrix*/,
                  mat * input /*The input matrix*/ );
 
+#ifndef eigValueHS
+#define eigValueHS(arg1, arg2) _eigValueHS(arg1, _DEFVALUE(arg2, 1000))
 
 /* This function is defined to get the Eigen Value of matrix via Householder method. */
-void eigValueHS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
+void _eigValueHS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
                 mat *T/*The target matrix*/,
                 int times/*The iteration times*/ );
 
+#endif /* eigValueHS */
 
 /*This function is defined to do QR decomposition on a matrix via Givens means*/
 void mGivens(mat * Qresult/*The unitary matrix*/,
              mat * Rresult/*The tpper triangle matrix*/,
              mat * input/*The input matrix*/);
 
+#ifndef eigValueGVS
+#define eigValueGVS(arg1, arg2) _eigValueGVS(arg1, _DEFVALUE(arg2, 1000))
 
 /* This function is defined to get the Eigen Value of matrix via Given method. */
-void eigValueGVS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
+void _eigValueGVS(double _Complex * eigvalues/* The pointer to eigenvalues*/,
                  mat *T/*The target matrix*/,
                  int times/*The iteration times*/ );
+#endif /* eigValueGVS */
+
+#endif /* _DEFVALUE */
 
 #endif /* cmat_h */
